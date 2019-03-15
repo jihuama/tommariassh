@@ -3,8 +3,7 @@ FROM alpine
 MAINTAINER Charles "jihua.ma@gmail.com"
 
 ENV TZ Asia/Shanghai
-RUN echo "http://mirrors.aliyun.com/alpine/latest-stable/main/" > /etc/apk/repositories
-RUN echo "http://mirrors.aliyun.com/alpine/latest-stable/community/" >> /etc/apk/repositories
+
 RUN addgroup -S mysql \
     && adduser -S mysql -G mysql \
     && apk update \
