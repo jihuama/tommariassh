@@ -2,7 +2,8 @@ FROM alpine
 
 MAINTAINER Charles "jihua.ma@gmail.com"
 
-ENV TZ Asia/Shanghai
+ENV TZ=Asia/Shanghai \
+    TOMCAT_VERSION=7.0.108
 
 RUN addgroup -S mysql \
     && adduser -S mysql -G mysql \
@@ -32,9 +33,9 @@ RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/
     ssh-keygen -t rsa -P "" -f /etc/ssh/ssh_host_rsa_key && \
     ssh-keygen -t ecdsa -P "" -f /etc/ssh/ssh_host_ecdsa_key && \
     ssh-keygen -t ed25519 -P "" -f /etc/ssh/ssh_host_ed25519_key
-RUN wget http://mirrors.hust.edu.cn/apache/tomcat/tomcat-7/v7.0.93/bin/apache-tomcat-7.0.93.tar.gz && \
-tar xvf apache-tomcat-7.0.93.tar.gz -C /usr/local && mv /usr/local/apache-tomcat-7.0.93 /usr/local/tomcat
-RUN rm -f apache-tomcat-7.0.93.tar.gz
+RUN wget http://mirrors.hust.edu.cn/apache/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
+tar xvf apache-tomcat-${TOMCAT_VERSION}.tar.gz -C /usr/local && mv /usr/local/apache-tomcat-${TOMCAT_VERSION} /usr/local/tomcat
+RUN rm -f apache-tomcat-${TOMCAT_VERSION}.tar.gz
 # Add Tomcat Manager Gui user & password
 RUN echo '<tomcat-users> \
 <role rolename="manager-gui"/> \
